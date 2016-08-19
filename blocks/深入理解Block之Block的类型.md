@@ -95,24 +95,21 @@ BLOCK_EXPORT void * _NSConcreteWeakBlockVariable[32]
 [static void computeBlockInfo(CodeGenModule &CGM, CodeGenFunction *CGF,CGBlockInfo &info)](http://clang.llvm.org/doxygen/CGBlocks_8cpp_source.html#l00326)函数内，通过计算 block 的布局(layout)。当需要布局的变量为0时，block 会初始化为 `_NSConcreteGlobalBlock` 。
 
     
-     计算布局的顺序：
+    统计需要布局（layout）的变量：
     * `this` (为了访问 `c++` 的成员变量和函数，需要 `this` 指针)
     * 依次按下列规则处理捕获的变量：
         * 不需要计算布局的变量：
             * 生命周期为静态的变量（被 `const` `static` 修饰的变量，不被函数包含的静态常量，c++中生命周期为静态的变量）
             * 函数参数
-        * 需要计算布局的变量：被 `__block` 修饰的变量[4]，以上未提到的类型（比如block）
-
-
-    > 当布局顺序计算完毕后，会按照以下顺序进行一次稳定排序。
+        * 需要计算布局的变量：被 `__block` 修饰的变量，以上未提到的类型（比如block）
     
+    &nbsp;
+    **Tips**：当需要布局（layout）的变量的统计完毕后，会按照以下顺序进行一次稳定排序。
+    &nbsp;
     *  __strong 修饰的变量
     *  ByRef 类型
     *  __weak 修饰的变量
     *  其它类型
-
-
-
 
 
 ## <a name="1.2"></a>_NSConcreteMallocBlock
