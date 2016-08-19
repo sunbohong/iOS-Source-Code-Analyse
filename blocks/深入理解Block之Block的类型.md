@@ -19,7 +19,7 @@
 
 &nbsp;
 
-###<span id="1">类型简介</span>
+###<a name="1"></a>类型简介
 
 
 对 block 稍微有所了解的人都知道，block 会在编译过程中，会被当做结构体进行处理。 其结构[Block-ABI-Apple](http://clang.llvm.org/docs/Block-ABI-Apple.html#id2)大概是这样的:
@@ -69,7 +69,7 @@ BLOCK_EXPORT void * _NSConcreteWeakBlockVariable[32]
  ``` 
 
 
-#### <span id="1.1">_NSConcreteGlobalBlock & _NSConcreteStackBlock</span>
+#### <a name="1.1"></a>_NSConcreteGlobalBlock & _NSConcreteStackBlock
 
  `_NSConcreteGlobalBlock` & `_NSConcreteStackBlock` 是 block 初始化时设置的类型(上文中 [Block-ABI-Apple](http://clang.llvm.org/docs/Block-ABI-Apple.html#id2) 已经提及，并且 [CGBlocks_8cpp_source.html#l00141](http://clang.llvm.org/doxygen/CGBlocks_8cpp_source.html#l00141) 也提到过）。
  
@@ -115,7 +115,7 @@ BLOCK_EXPORT void * _NSConcreteWeakBlockVariable[32]
 
 
 
-#### <span id="1.2">_NSConcreteMallocBlock</span>
+#### <a name="1.2"></a>_NSConcreteMallocBlock
 
 在非垃圾收集环境下，当 `_NSConcreteStackBlock` 类型的block 被真正复制时，在 `_Block_copy_internal` 方法内部，会转换为 `_NSConcreteMallocBlock` [libclosure-65/runtime.c](http://opensource.apple.com/source/libclosure/libclosure-65/runtime.c)
 
@@ -134,7 +134,7 @@ BLOCK_EXPORT void * _NSConcreteWeakBlockVariable[32]
     }
 ```
 
-#### _NSConcreteFinalizingBlock&_NSConcreteAutoBlock
+#### <a name="1.3"></a>_NSConcreteFinalizingBlock&_NSConcreteAutoBlock
 
 在垃圾收集环境下，当 block 被复制时，如果block 有 ctors & dtors 时，则会转换为 `_NSConcreteFinalizingBlock` 类型，反之，则会转换为 `_NSConcreteAutoBlock` 类型
 
@@ -163,7 +163,8 @@ GC环境下，当对象被 ` __weak __block ` 修饰，且从栈复制到堆时�
         }
 
 
-### <span id="2">ARC环境的特殊处理</span>
+### <a name="2"></a>ARC环境的特殊处理
+
 
 > 下面的代码均通过添加 `objc_retainBlock` `_Block_copy` 和 `_Block_copy_internal` 符号断点进行测试
 
